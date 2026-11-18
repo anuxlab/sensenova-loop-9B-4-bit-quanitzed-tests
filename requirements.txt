@@ -6,3 +6,4 @@ accelerate>=1.1.0
 bitsandbytes
 sentencepiece
 protobuf
+Pillow
