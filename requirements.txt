@@ -1,0 +1,8 @@
+# requirements.txt
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.11.0+cpu
+transformers==5.18.0
+accelerate>=1.1.0
+bitsandbytes
+sentencepiece
+protobuf
