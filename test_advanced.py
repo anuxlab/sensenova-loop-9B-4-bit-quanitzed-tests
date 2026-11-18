@@ -127,3 +127,26 @@ print(response_long)
 print("\n" + "=" * 60)
 print("Advanced tests complete.")
 print("=" * 60)
+
+
+# Add this at the very bottom of test_advanced.py
+if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--tests",
+        default="all",
+        choices=["all", "thinking", "multimodal", "longcontext"],
+        help="Which test(s) to run",
+    )
+    args = parser.parse_args()
+
+    if args.tests in ("all", "thinking"):
+        # ... your existing TEST 1 block
+        pass
+    if args.tests in ("all", "multimodal"):
+        # ... your existing TEST 2 block
+        pass
+    if args.tests in ("all", "longcontext"):
+        # ... your existing TEST 3 block
+        pass
