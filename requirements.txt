@@ -1,9 +1,9 @@
-# requirements.txt
---extra-index-url https://download.pytorch.org/whl/cpu
-torch==2.11.0+cpu
-transformers==5.18.0
-accelerate>=1.1.0
-bitsandbytes
-sentencepiece
-protobuf
-Pillow
+# Core benchmark runner (Python 3.10+)
+Pillow>=10.0
+pytest>=8.0
+
+# Apple Silicon 4-bit MLX backend (install on macOS/Apple Silicon):
+# pip install -U mlx mlx-vlm
+
+# Optional original Hugging Face Transformers backend (not the 4-bit MLX export):
+# pip install -U torch transformers accelerate safetensors

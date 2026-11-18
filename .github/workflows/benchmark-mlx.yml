@@ -1,0 +1,44 @@
+name: SenseNova 4-bit MLX benchmark (self-hosted Apple Silicon)
+
+on:
+  workflow_dispatch:
+    inputs:
+      categories:
+        description: Evaluation tracks
+        required: true
+        default: all
+        type: choice
+        options: [all, basic, reasoning, coding, agentic, longcontext, self_improve]
+      thinking:
+        description: Enable model thinking mode
+        required: true
+        default: false
+        type: boolean
+
+jobs:
+  benchmark:
+    # Configure a trusted, private self-hosted Apple Silicon runner with mlx-vlm installed.
+    runs-on: [self-hosted, macOS, ARM64]
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install -r requirements.txt
+      - name: Run benchmark
+        run: >-
+          python -m sensenova_eval.runner
+          --backend mlx
+          --model nativ-community/SenseNova-Loop-9B-4bit
+          --categories "${{ inputs.categories }}"
+          ${{ inputs.thinking && '--thinking' || '' }}
+          --output reports/sensenova-loop-results.json
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: sensenova-loop-benchmark-${{ github.run_number }}
+          path: reports/
+          if-no-files-found: warn
